@@ -701,6 +701,7 @@ static int test_migrate_start(QTestState **from, QTestState **to,
                                  "-name source,debug-threads=on "
                                  "-m %s "
                                  "-serial file:%s/src_serial "
+                                 "-trace events=/home/quintela/tmp/events "
                                  "%s %s %s %s",
                                  machine_opts ? " -machine " : "",
                                  machine_opts ? machine_opts : "",
@@ -717,6 +718,7 @@ static int test_migrate_start(QTestState **from, QTestState **to,
                                  "-name target,debug-threads=on "
                                  "-m %s "
                                  "-serial file:%s/dest_serial "
+                                 "-trace events=/home/quintela/tmp/events "
                                  "-incoming %s "
                                  "%s %s %s %s",
                                  machine_opts ? " -machine " : "",
