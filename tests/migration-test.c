@@ -1618,6 +1618,7 @@ int main(int argc, char **argv)
 
     module_call_init(MODULE_INIT_QOM);
 
+    if (0) {
     qtest_add_func("/migration/postcopy/unix", test_postcopy);
     qtest_add_func("/migration/postcopy/recovery", test_postcopy_recovery);
     qtest_add_func("/migration/deprecated", test_deprecated);
@@ -1638,6 +1639,7 @@ int main(int argc, char **argv)
     qtest_add_func("/migration/multifd/tcp/none", test_multifd_tcp_none);
     qtest_add_func("/migration/multifd/tcp/cancel", test_multifd_tcp_cancel);
     qtest_add_func("/migration/multifd/tcp/zlib", test_multifd_tcp_zlib);
+    }
     qtest_add_func("/migration/multifd/tcp/zstd", test_multifd_tcp_zstd);
 
     ret = g_test_run();
