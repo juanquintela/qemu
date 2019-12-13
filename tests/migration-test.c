@@ -1472,6 +1472,11 @@ static void test_multifd_tcp_zlib(void)
     test_multifd_tcp("zlib");
 }
 
+static void test_multifd_tcp_zstd(void)
+{
+    test_multifd_tcp("zstd");
+}
+
 /*
  * This test does:
  *  source               target
@@ -1631,6 +1636,7 @@ int main(int argc, char **argv)
     qtest_add_func("/migration/multifd/tcp/none", test_multifd_tcp_none);
     qtest_add_func("/migration/multifd/tcp/cancel", test_multifd_tcp_cancel);
     qtest_add_func("/migration/multifd/tcp/zlib", test_multifd_tcp_zlib);
+    qtest_add_func("/migration/multifd/tcp/zstd", test_multifd_tcp_zstd);
 
     ret = g_test_run();
 
