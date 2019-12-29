@@ -1821,6 +1821,12 @@ static void multifd_send_sync_main(RAMState *rs)
         MultiFDSendParams *p = &multifd_send_state->params[i];
 
         trace_multifd_send_sync_main_wait(p->id);
+        qemu_mutex_lock(&p->mutex);
+        if (p->quit) {
+            qemu_mutex_unlock(&p->mutex);
+            continue;
+        }
+        qemu_mutex_unlock(&p->mutex);
         qemu_sem_wait(&p->sem_sync);
     }
     trace_multifd_send_sync_main(multifd_send_state->packet_num);
