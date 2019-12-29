@@ -1603,6 +1603,8 @@ static void migrate_fd_cancel(MigrationState *s)
     QEMUFile *f = migrate_get_current()->to_dst_file;
     trace_migrate_fd_cancel();
 
+    s->active = false;
+
     if (s->rp_state.from_dst_file) {
         /* shutdown the rp socket, so causing the rp thread to shutdown */
         qemu_file_shutdown(s->rp_state.from_dst_file);
@@ -2863,6 +2865,7 @@ static void migration_completion(MigrationState *s)
     }
 
     if (!migrate_colo_enabled()) {
+        s->active = false;
         migrate_set_state(&s->state, current_active_state,
                           MIGRATION_STATUS_COMPLETED);
     }
@@ -2888,6 +2891,7 @@ fail_invalidate:
     }
 
 fail:
+    s->active = false;
     migrate_set_state(&s->state, current_active_state,
                       MIGRATION_STATUS_FAILED);
 }
@@ -3287,6 +3291,7 @@ static void *migration_thread(void *opaque)
     }
 
     qemu_savevm_state_setup(s->to_dst_file);
+    s->active = true;
 
     if (qemu_savevm_nr_failover_devices()) {
         migrate_set_state(&s->state, MIGRATION_STATUS_SETUP,

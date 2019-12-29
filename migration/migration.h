@@ -169,6 +169,11 @@ struct MigrationState
 
     int state;
 
+    /* Is the migration channel still open.  When migration finish,
+     * gets an error or is cancelled this becomes false.
+     */
+
+    bool active;
     /* State related to return path */
     struct {
         QEMUFile     *from_dst_file;
